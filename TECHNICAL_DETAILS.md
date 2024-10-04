@@ -1,5 +1,8 @@
 # Errors
-Sample program to print in bold, red text using ANSI excape codes.
+## Error location
+Keep information on which file and line the error occurs. The filename and line should be correct even though it's imported code through the `load` keyword.
+## Error Formatting (ANSI excape codes)
+Sample program to print in bold, red text using ANSI escape codes.
 ```
 const std = @import("std");
 
