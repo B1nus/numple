@@ -2,7 +2,7 @@
 A simple programming language made for doing math with numbers.
 
 # Syntax
-The syntax is similar to that of math:
+The syntax is similar to mathematics:
 ```
 sub(a, b) R, R -> R
   return a - b
