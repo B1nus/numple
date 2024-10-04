@@ -200,6 +200,8 @@ at line 5 | i = 8
 at line 10 | pi = 10
 ```
 Fk, what is the user reassigns pi to 2 or something and the person using commandline args uses pi expeting it to be 3.14... Okay, shadowing builtins is illegal.
+
+Don't forget to make debugging easy. Filenames, lines and columns and sensible errors. Don't find one missing character on one line and ignore the rest, find them all and tell the user.
 ## Importing
 Simply paste the file contents into the new file. Don't forget to keep the right filename and line number in the errors and debug thingies.
 ## Expression logic
