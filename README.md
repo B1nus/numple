@@ -3,12 +3,12 @@ A simple programming language made for doing math with numbers.
 
 # Syntax
 ```
-subtraction(a, b) R, R -> R
+sub(a, b) R, R -> R
   return a - b
 ```
 Feel free to skip the type declaration.
 ```
-subtraction(a, b) -> R
+sub(a, b) -> R
   return a - b
 ```
 ## Numbers
