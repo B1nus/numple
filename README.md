@@ -2,17 +2,18 @@
 A simple programming language made for doing math with numbers.
 
 # Syntax
+The syntax is similar to that of math:
 ```
 sub(a, b) R, R -> R
   return a - b
 ```
-Feel free to skip the type declaration.
+Feel free to skip the type declaration:
 ```
 sub(a, b) -> R
   return a - b
 ```
 ## Numbers
-The types in numlang are the same as in math. We have N, Z, Q, R and C.
+The types in numple are the same as in math. We have N, Z, Q, R and C.
 ```
 n = 0
 z = -1
@@ -42,9 +43,9 @@ if x = 5 and y = 6 or z = 7
 ```
 Use parenthesis like so:
 ```
-if ((x = 5) and y = 6) or z = 7
+if (x = 5 and y = 6) or z = 7
 ```
-The priority rules for boolean expressions are the same as math.
+The priority rules for boolean expres   sions are the same as math.
 
 ## Comments.
 This is going to ruffle some feather. Comments start with a capital letter and end with a period followed by a newline.
@@ -160,12 +161,12 @@ where b >= a
   return a - b
 ```
 ## Numbers
-Numbers in numlang are interpreted as expressions. Not floats and not integers. This means that the famous:
+Numbers in muple are interpreted as expressions. Not floats and not integers. This means that the famous:
 ```
 if 0.1 + 0.2 = 0.3
   ...
 ```
-Is actually true in numlang. It understands this statement as `if 1/10 + 1/5 = 3/10` which is in fact true.
+Is actually true in numple. It understands this statement as `if 1/10 + 1/5 = 3/10` which is in fact true.
 
 Also note that this boolean expression works as it would in math:
 ```
@@ -189,7 +190,7 @@ Warn for shadowing with function args.
 Also warn for shadowing with builtins.
 Also warn for normal shadowing possibly. But only once.
 ## Printing
-Hmm, how to format? I think formatting as numlang is the best, simple and has the benefit of being easy to copy paste into the code. Don't forget to print a decimal representation with the tilde. Output: `at line 3 | x = pi + 2 ~ 5.14159...`. Don't forget to remove the `...` and `~` if the decimal expansion is actually not infinite or shorter than `x` in length.
+Hmm, how to format? I think formatting as numple is the best, simple and has the benefit of being easy to copy paste into the code. Don't forget to print a decimal representation with the tilde. Output: `at line 3 | x = pi + 2 ~ 5.14159...`. Don't forget to remove the `...` and `~` if the decimal expansion is actually not infinite or shorter than `x` in length.
 Should the output of a filename function have the arguments included or no? What if the other print statements bury the commandline arguments so you can't see them anymore? Also what if the argiments are really long? I got it. If there are to many print statements before the output we print the input. And if the einput is to long we split it across more lines.
 ```
 $ num filename.nm root(3) * pi * e * number, hello * 3^5 * root(6) * 8
@@ -217,6 +218,6 @@ Module %? On real numbers??? Don't forget that the module is always positive. Th
 
 Operation priority. Don't forget to add mathematically correct priority for */+-^%().
 
-I'm opening up to the idea of adding booleans as a type. How I would handle this type though remains to be seen. It's possible that you can make due without it and then I won't be adding it. I really can't make this decision before I've programmed in the language for a while.
+I'm opening up to the idea of adding booleans as a type. How I would handle this type though remains to be seen. It's possible that you can make due without it and then I won't be adding it. I really can't make this decision before I've programmed in the language for a while. Also, never forgeti KISS spaghetti. Okay that didn't really work, whatever, you get the point.
 ## README
 Consider removing some stuff from here. The where keyword and the fact that you can omit type for the input should not be something a complete beginner of the language should think about.
