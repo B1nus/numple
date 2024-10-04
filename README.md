@@ -214,5 +214,7 @@ Find a ratio simplifier algorithm online.
 Module %? On real numbers??? Don't forget that the module is always positive. The tiniest positive number is the modulo. Not all values are okay. (division by zero or something)
 
 Operation priority. Don't forget to add mathematically correct priority for */+-^%().
+
+I'm opening up to the idea of adding booleans as a type. How I would handle this type though remains to be seen. It's possible that you can make due without it and then I won't be adding it. I really can't make this decision before I've programmed in the language for a while.
 ## README
 Consider removing some stuff from here. The where keyword and the fact that you can omit type for the input should not be something a complete beginner of the language should think about.
