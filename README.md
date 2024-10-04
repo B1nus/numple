@@ -24,12 +24,12 @@ c = 3 + i(8)
 
 Ask for the value of an expression with a question mark.
 ```
-x = 2
+x = 2 * 2
 x?
 ```
 ```
 $ nm filename.nm
-at line 2 | x = 2
+at line 2 | x = 2 * 2 = 4
 ```
 
 ## If statements
@@ -70,7 +70,7 @@ addition(a, b) R, R -> R
   return a + b
 ```
 ```
-$ num addition.nm 5, 2 + root(2)
+$ numple addition.nm 5, 2 + root(2)
 addition(5, 2 + root(2))
 = 7 + root(2)
 ≈ 8.41421
@@ -79,18 +79,19 @@ addition(5, 2 + root(2))
 ## Builtins.
 Functions:
 ```
-root(x) R -> R
-floor(x) R -> Z
-sin(x) R -> R
-cos(x) R -> R
-tan(x) R -> R where cos(x) != 0 
-arcsin(x) R -> R where -1 <= x <= 1
-arccos(x) R -> R where -1 <= x <= 1
-arctan(x) R -> R
-ln(x) R -> R where x > 0
 i(x) R -> C
 re(c) C -> R
 im(c) C -> R
+ln(x) R -> R where x > 0
+abs(c) C -> R
+sin(x) R -> R
+cos(x) R -> R
+tan(x) R -> R where cos(x) != 0
+root(x) R -> R
+floor(x) R -> Z
+arcsin(x) R -> R where -1 <= x <= 1
+arccos(x) R -> R where -1 <= x <= 1
+arctan(x) R -> R
 ```
 Constants:
 ```
@@ -100,32 +101,7 @@ phi
 ```
 These names are reserved and cannot be used. However, you are allowed to for example call a **number** `i = 2` even though there is the **function** `i(x)`.
 
-# Language symbols
-```
-N
-Z
-Q
-R
-C
-,
-(
-)
-->
-?
-+
--
-*
-/
-^
-=
-!=
-<
-<=
->
->=
-```
-## Keywords
-All keywords are reserved. You are not allowed to name a function or number by any of the below:
+## Keywords (reserved)
 ```
 if
 or
@@ -136,6 +112,7 @@ where
 return
 load
 ```
+
 # Hmm... it seems that we're missing some features?
 Do you want mutability? Maybe strings? Or how about loops? Too bad. This language is made for one thing: **Numbers**. Use shadowing to change values:
 ```
@@ -180,15 +157,39 @@ six = 6
 filename(x) N -> N
   ...
 ```
-`$ num filename.nm six`
+`$ numple filename.nm six`
 
 Same goes for **all** functions you declared in the file.
 
 # Note to self
+### Language symbols
+```
+N
+Z
+Q
+R
+C
+,
+(
+)
+->
+?
++
+-
+*
+/
+^
+=
+!=
+<
+<=
+>
+>=
+```
+These should not have to be in the readme. However, consider making the code easy enough to read this from source.
 ## Shadowing
 Warn for shadowing with function args.
-Also warn for shadowing with builtins.
-Also warn for normal shadowing possibly. But only once.
+Also warn for normal shadowing. But only once.
 ## Printing
 Hmm, how to format? I think formatting as numple is the best, simple and has the benefit of being easy to copy paste into the code. Don't forget to print a decimal representation with the tilde. Output: `at line 3 | x = pi + 2 ~ 5.14159...`. Don't forget to remove the `...` and `~` if the decimal expansion is actually not infinite or shorter than `x` in length.
 Should the output of a filename function have the arguments included or no? What if the other print statements bury the commandline arguments so you can't see them anymore? Also what if the argiments are really long? I got it. If there are to many print statements before the output we print the input. And if the einput is to long we split it across more lines.
@@ -200,24 +201,35 @@ at line 5 | i = 7
 at line 5 | i = 8
 at line 10 | pi = 10
 ```
-Fk, what is the user reassigns pi to 2 or something and the person using commandline args uses pi expeting it to be 3.14... Okay, shadowing builtins is illegal.
 
 Don't forget to make debugging easy. Filenames, lines and columns and sensible errors. Don't find one missing character on one line and ignore the rest, find them all and tell the user.
 ## Importing
 Simply paste the file contents into the new file. Don't forget to keep the right filename and line number in the errors and debug thingies.
 ## Expression logic
+- Polar form `c = 5 * e^i(pi)` or cartesian `c = 5 * (cos(pi) + i(sin(pi)))`
+- Find a ratio simplifier algorithm online.
+- Don't forget modulo. a % b = a - b * floor(a/b) (N, N -> N)
+- Operation priority should be the same as math in both arithmetic and boolean expressions.
+## Expression Parser
+The parser should always recognize the expression as it's simplest type. That means it should understand that:
+- `root(4) = 2` `sin(pi / 6) = 1/2` `floor(6/7) = 0` etc...
+- `10/5 = 2`
+- `a * ... * a = a^n`
+- `i^3 = -i` `i^4 = 1` etc...
+- `69/23 = 3` `26/4 = 13/2`
+- `0.15 = 3/20`
+- `16 + 4 = 20`
+- `root(2) * root(2) = root(4) = 2`
+- etc...
+Here's [a website to help you](http://www.semdesigns.com/Products/DMS/SimpleDMSDomainExample.html#TransformationRules).
 [Use these to simplify sin,cos and tan expressions](https://en.wikipedia.org/wiki/Exact_trigonometric_values)
-
-Make some smart code to acess the number type as N, Z, Q, R or C. The hard part is separating Q from R, the rest is mostly trivial.
-
-Hmmm, polar form `c = 5 * e^i(pi)` should be allowed. Make sure to handle this properly.
-
-Find a ratio simplifier algorithm online.
-
-Module %? On real numbers??? Don't forget that the module is always positive. The tiniest positive number is the modulo. Not all values are okay. (division by zero or something)
-
-Operation priority. Don't forget to add mathematically correct priority for */+-^%().
-
-I'm opening up to the idea of adding booleans as a type. How I would handle this type though remains to be seen. It's possible that you can make due without it and then I won't be adding it. I really can't make this decision before I've programmed in the language for a while. Also, never forgeti KISS spaghetti. Okay that didn't really work, whatever, you get the point.
+## Compiler and Interpreter
+Keep the parser and compiler separate. All errors about syntax should be handled in the parsing stage to avoid code duplication.
+Interpreter command:
+`$ numple factorial.nm 12`
+Compiler command (Only for x86_64 linux):
+`$ numple compile factorial.nm`
+### Warnings
+Shadowing function arguments
 ## README
 Consider removing some stuff from here. The where keyword and the fact that you can omit type for the input should not be something a complete beginner of the language should think about.
