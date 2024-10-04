@@ -1,4 +1,4 @@
-# numbo
+# numple
 A simple programming language made for doing math with numbers.
 
 # Syntax
