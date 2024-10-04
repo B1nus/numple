@@ -1,5 +1,5 @@
 # numbo
-Numlang, abreviation for Number Language is a simple programming language made for doing math with numbers.
+A simple programming language made for doing math with numbers.
 
 # Syntax
 ```
