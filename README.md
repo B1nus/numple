@@ -124,15 +124,15 @@ C
 >=
 ```
 ## Keywords
-All keywords are reserved. This means that you cannot name a function or number by any of the below:
+All keywords are reserved. You are not allowed to name a function or number by any of the below:
 ```
 if
 or
 not
 and
 else
-return
 where
+return
 load
 ```
 # Hmm... it seems that we're missing some features?
