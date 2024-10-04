@@ -136,7 +136,7 @@ where
 load
 ```
 # Hmm... it seems that we're missing some features?
-Do you want mutability? Maybe strings? Or how about loops? Too bad. They do not exist in numlang. This language is made for one thing: **Numbers**. Use shadowing to change values:
+Do you want mutability? Maybe strings? Or how about loops? Too bad. This language is made for one thing: **Numbers**. Use shadowing to change values:
 ```
 x = 1
 x = x + 1
