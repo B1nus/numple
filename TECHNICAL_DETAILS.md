@@ -15,3 +15,7 @@ pub fn main() void {
     stdout.print("{s}Error: Something went wrong{s}\n", .{ bold_red, reset }) catch {};
 }
 ```
+# Builtins
+`phi = (1 + root(5)) / 2`
+# Operations
+`a % b = a - b * floor(a / b)`
