@@ -74,7 +74,7 @@ GitHub published support for the Markdown below in https://github.com/orgs/commu
 
 Arguments did not meet the `where` constraint.
 ```diff
-- Error:
+Error:
 1 | npr(n, r) N, N -> N
 2 | where r <= n
     ^^^^^^^^^^^^
@@ -83,14 +83,14 @@ Constraint not met. Found r = 1, n = 3.
 ```
 Arguments did not met type constraints.
 ```diff
-- Error:
+Error:
 1 | npr(n, r) N, N -> N
 
 Arguments have the wrong type. Got n = root(2) + pi
 ```
 Output did not met type constraint.
 ```
-- Error:
+Error:
 1 | npr(n, r) N, N -> N
 
 Returned value does not meet type constraint 'N', got '6/9'
