@@ -77,8 +77,6 @@ addition(5, 2 + root(2))
 ```
 
 ## Builtins.
-Functions:
-
 These names are reserved and cannot be used. However, you are allowed to for example call a **number** `i = 2` even though there is the **function** `i(x)`.
 > [!Note]
 > Even though you can name a function `pi() -> R` you should avoid doing so becuase it can cause confusion.
@@ -142,30 +140,6 @@ filename(x) N -> N
 Same goes for **all** functions you declared in the file.
 
 # Note to self
-### Language symbols
-```
-N
-Z
-Q
-R
-C
-,
-(
-)
-->
-?
-+
--
-*
-/
-^
-=
-!=
-<
-<=
->
->=
-```
 These should not have to be in the readme. However, consider making the code easy enough to read this from source.
 ## Shadowing
 Warn for shadowing with function args.
