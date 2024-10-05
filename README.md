@@ -182,7 +182,7 @@ Keep the parser and compiler separate. All errors about syntax should be handled
 Interpreter command:
 `$ numple factorial.nm 12`
 Compiler command (Only for x86_64 linux):
-`$ numple compile factorial.nm`
+`$ numple -c factorial.nm`
 ### Warnings
 Shadowing function arguments
 ## README
