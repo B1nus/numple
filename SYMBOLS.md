@@ -9,8 +9,8 @@ C   Complex
 )   RParen
 ->  Arrow
 ?   Quest
-+   Plus.
--   Minus.
++   Plus
+-   Minus
 *   Star
 /   Slash
 ^   Power
