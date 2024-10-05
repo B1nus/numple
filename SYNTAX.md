@@ -7,7 +7,7 @@ sub(a, b) -> R
 You can declare the input types:
 ```rust
 npr(n, r) N, N -> N
-  return factorial(n) / factorial(n - r)
+  return n! / (n - r)!
 ```
 You can also add constraints using the keyword `where`:
 ```rust
