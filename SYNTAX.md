@@ -13,7 +13,7 @@ You can also add constraints using the keyword `where`:
 ```rust
 npr(n, r) N, N -> N
 where r <= n
-  return factorial(n) / factorial(n - r)
+  return n! / (n - r)!
 ```
 ## Entrypoint
 A function named after the file acts as the entrypoint to the program. Command line arguments are passed to this function. Let this be the contents of factorial.nm:
