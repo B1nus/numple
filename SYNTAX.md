@@ -92,7 +92,7 @@ GitHub published support for the Markdown below in https://github.com/orgs/commu
 > Negative potential consequences of an action.
 
 Arguments did not meet the `where` constraint.
-```carbon
+```
 Error:
 1 | npr(n, r) N, N -> N
 2 | where r <= n
@@ -101,7 +101,7 @@ Error:
 Constraint not met. Found r = 1, n = 3.
 ```
 Arguments did not met type constraints.
-```diff
+```
 Error:
 1 | npr(n, r) N, N -> N
 
