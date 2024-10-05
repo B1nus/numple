@@ -1,11 +1,11 @@
 # Functions
 Functions are declared with its name, arguments, and return type:
-```rust
+```go
 sub(a, b) -> R
   return a - b
 ```
-You can declare the input types:
-```rust
+You can declare types:
+```zig
 npr(n, r) N, N -> N
   return n! / (n - r)!
 ```
