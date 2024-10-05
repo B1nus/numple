@@ -76,16 +76,20 @@ Function hello() not found.
 
 GitHub published support for the Markdown below in https://github.com/orgs/community/discussions/16925.
 
-> [!NOTE] This language only has the basics needed for numbers. If you want to use strings, booleans, loops or need mutability numple will be super inconvinient.
+> [!NOTE]
+> This language only has the basics needed for numbers. If you want to use strings, booleans, loops or need mutability numple will be super inconvinient.
 
-> [!TIP] Try using the syntax `if 5 < x < 10`. It's valid in numple!
+> [!TIP]
+> Try using the syntax `if 5 < x < 10`. It's valid in numple!
 
 > [!IMPORTANT]
 > Crucial information necessary for users to succeed.
 
-> [!WARNING] Even though you can name functions such as `pi(x) -> R` you probably shouldn't.
+> [!WARNING]
+> Even though you can name functions such as `pi(x) -> R` you probably shouldn't.
 
-> [!CAUTION] Negative potential consequences of an action.
+> [!CAUTION]
+> Negative potential consequences of an action.
 
 Arguments did not meet the `where` constraint.
 ```carbon
