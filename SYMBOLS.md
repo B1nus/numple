@@ -16,10 +16,10 @@ C   Complex
 ^   Power
 %   Percent
 !   Bang
-=   Equal
-!=  NEqual
-<   Less
-<=  LessE
->   More
->=  MoreE
+=   EQ
+!=  NEQ
+<   LE
+<=  LEEQ
+>   GT
+>=  GTEQ
 ```
