@@ -32,6 +32,12 @@ $ numple
 >>> root(2) + 4 * pi ?
 1 | root(2) + 4 * pi ~ 7.69739
 ```
+The leftmost column is for the line number and filename. If there is only one file then it's name is not included. If there is more than one file however the output might look like so:
+```
+$ numple file
+file2:10 | x = 40
+file:29 | y = 69 * pi ~ 216.76989
+```
 ## Examples of output:
 ```
 110 | 7/2 = 3.5
@@ -44,36 +50,37 @@ $ numple
 97 | 420 * 10^7 = 4.2 * 10^9
 110 | (9 + 6 - 7)/3 = 8/3 ~ 2.66667
 ```
+# If statements
+Numple only allows boolean expression in if statements in order to keep things simple. Here's an example:
+```
+if -1 < x < 1
+  x?
+```
+This code only outputs the value for x if its value is between minus one and plus one. As you can see, such a boolean expression is allowed in numple unlike many other programming languages. Now for parenthesis, the expression below can take on two meanings depending on your interpretation.
+```
+if x = 0 and y = 0 or z = 0
+  ...
+```
+It can be read as `(x = 0 and y = 0) or z = 0` and `x = 0 and (y = 0 or z = 0)` which are not equivalent. When this happens in math you are forced to add parenthesis and numple is no different. The parser will throw an error if it detects an ambiguous statement and prompt the user to add parenthesis as shown [here]([#Amgigous if statement](https://github.com/B1nus/numple/readme/SYNTAX.md#ambiguous-if-statement)).
 # Errors and Warnings
 ## Functions
 
 
 GitHub published support for the Markdown below in https://github.com/orgs/community/discussions/16925.
 
-> [!NOTE]
-> This language only has the basics needed for numbers. If you want to use strings, booleans, loops or need mutability numple will be super inconvinient.
+> [!NOTE] This language only has the basics needed for numbers. If you want to use strings, booleans, loops or need mutability numple will be super inconvinient.
 
-> [!TIP]
-> Try using the syntax `if 5 < x < 10`. It's valid in numple!
+> [!TIP] Try using the syntax `if 5 < x < 10`. It's valid in numple!
 
 > [!IMPORTANT]
 > Crucial information necessary for users to succeed.
 
-> [!WARNING]
-> Even though you can name functions such as `pi(x) -> R` you probably shouldn't.
+> [!WARNING] Even though you can name functions such as `pi(x) -> R` you probably shouldn't.
 
-> [!CAUTION]
-> Negative potential consequences of an action.
-```diff
-- text in red
-+ text in green
-! text in orange
-# text in gray
-@@ text in purple (and bold)@@
-```
+> [!CAUTION] Negative potential consequences of an action.
 
 Arguments did not meet the `where` constraint.
-```diff
+```carbon
 Error:
 1 | npr(n, r) N, N -> N
 2 | where r <= n
@@ -86,7 +93,7 @@ Arguments did not met type constraints.
 Error:
 1 | npr(n, r) N, N -> N
 
-Arguments have the wrong type. Got n = root(2) + pi
+Arguments have the wrong type. Got n = root(2) + pi which is of type R
 ```
 Output did not met type constraint.
 ```
@@ -96,15 +103,13 @@ Error:
 Returned value does not meet type constraint 'N', got '6/9'
 ```
 ## Parser
-## Compiler
-## Runtime
-### Function
+The parser needs to keep track of the file, line and columns of every token. This is needed to give helpful errors with underlining.
+### Ambiguous if statement
 ```
 Error:
-1 | npr(n, r) N, N -> N
-2 | where r <= n
-    ^^^^^^^^^^^^
+file: 6 | if x = 0 and y = 0 or z = 0
 
-Constraint not met. Found r = 1, n = 3.
+Detected ambiguous if statements. Please add parenthesis.
 ```
-```
+## Compiler
+## Runtime
