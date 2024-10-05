@@ -17,7 +17,7 @@ pub fn main() void {
 ```
 # Expressions
 ## Simplifications
-All builting operations and functions should have rules for simplification. For example that `2 + 2 = 4`, `root(2) * root(2) = 2`, `sin(pi / 6) = 1/2`, `n! * (n + 1) = (n + 1)!` etc...
+All builting operations and functions should have rules for simplification. For example that `2 + 2 = 4`, `root(2) * root(2) = 2`, `sin(pi / 6) = 1/2`, `n! * (n + 1) = (n + 1)!` etc... There are [resources](http://www.semdesigns.com/Products/DMS/SimpleDMSDomainExample.html#TransformationRules) for achieving this. However, I believe making a perfect expression simplifier is impossible. A good idea is to make adding simplification rules easy so other people can add rules.
 # Builtins
 `phi = (1 + root(5)) / 2`
 # Operations
