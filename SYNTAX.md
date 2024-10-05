@@ -62,8 +62,7 @@ if x = 0 and y = 0 or z = 0
   ...
 ```
 It can be read as `(x = 0 and y = 0) or z = 0` and `x = 0 and (y = 0 or z = 0)` which are not equivalent. When this happens in math you are forced to add parenthesis and numple is no different. The parser will throw an error if it detects an ambiguous statement and prompt the user to add parenthesis as shown [here](https://github.com/B1nus/numple/blob/readme/SYNTAX.md#ambiguous-if-statement).
-# Errors and Warnings
-## Errors
+# Errors
 The general format for errors is the following.
 ```
 Error in factorial.nm
@@ -71,26 +70,7 @@ Error in factorial.nm
         ^^^^^
 Function hello() not found.
 ```
-## Functions
-
-
-GitHub published support for the Markdown below in https://github.com/orgs/community/discussions/16925.
-
-> [!NOTE]
-> This language only has the basics needed for numbers. If you want to use strings, booleans, loops or need mutability numple will be super inconvinient.
-
-> [!TIP]
-> Try using the syntax `if 5 < x < 10`. It's valid in numple!
-
-> [!IMPORTANT]
-> Crucial information necessary for users to succeed.
-
-> [!WARNING]
-> Even though you can name functions such as `pi(x) -> R` you probably shouldn't.
-
-> [!CAUTION]
-> Negative potential consequences of an action.
-
+## Function errors
 Arguments did not meet the `where` constraint.
 ```
 Error:
@@ -122,14 +102,14 @@ Error:
 Function npr() expected 2 arguments, got 1. Function declaration:
 1 | npr(n, r) N, N -> N
 ```
-## Parser
 The parser needs to keep track of the file, line and columns of every token. This is needed to give helpful errors with underlining.
-### Ambiguous if statement
+## Ambiguous if statement
 ```
 Error in filename.nm
 6 | if x = 0 and y = 0 or z = 0
 
 Detected ambiguous if statement. Please add parenthesis.
 ```
+## Parser
 ## Compiler
 ## Runtime
