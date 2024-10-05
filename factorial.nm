@@ -1,10 +1,8 @@
 interval_factorial(i, n) N, N -> N
-where i >= n
-  if i >= n
+where i <= n
+  if i = n
     return n
-  return i * factorial(i + 1, n)
+  return max(i, 1) * factorial(i + 1, n)
 
 factorial(n) N -> N
-  if n = 0
-    return 1
   return ranged_factorial(1, n)
