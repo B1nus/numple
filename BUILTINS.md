@@ -11,6 +11,7 @@ sin(x) R -> R
 cos(x) R -> R
 tan(x) R -> R where cos(x) != 0
 root(x) R -> R
+nroot(x, n) R, N -> R where n >= 2
 floor(x) R -> Z
 arcsin(x) R -> R where -1 <= x <= 1
 arccos(x) R -> R where -1 <= x <= 1
