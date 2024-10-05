@@ -1,35 +1,35 @@
 # Functions
 Functions are declared with the function name, argument names, and return type:
-```
+```rust
 sub(a, b) -> R
   return a - b
 ```
 You can declare the input types:
-```
+```rust
 npr(n, r) N, N -> N
   return factorial(n) / factorial(n - r)
 ```
 You can also add constraints using the keyword `where`:
-```
+```rust
 npr(n, r) N, N -> N
 where r <= n
   return factorial(n) / factorial(n - r)
 ```
 ## Entrypoint
 A function named after the file acts as the entrypoint to the program. Command line arguments are passed to this function. Let this be the contents of factorial.nm:
-```
+```rust
 factorial(n) N -> N
   if n <= 1
     return 1
   return n * factorial(n - 1)
 ```
-Then running `$ numple factorial 5` will return `factorial(5) = 120`.
+Running `$ numple factorial 5` will return `factorial(5) = 120`.
 
 # Output
 Ask for the value of an expression with `?`
 ```
 $ numple
->>> root(2) + 4 * pi?
+>>> root(2) + 4 * pi ?
 1 | root(2) + 4 * pi ~ 7.69739
 ```
 ## Examples of output:
@@ -46,9 +46,35 @@ $ numple
 ```
 # Errors and Warnings
 ## Functions
-Arguments did not met `where` constraint.
+
+
+GitHub published support for the Markdown below in https://github.com/orgs/community/discussions/16925.
+
+> [!NOTE]
+> This language only has the basics needed for numbers. If you want to use strings, booleans, loops or need mutability numple will be super inconvinient.
+
+> [!TIP]
+> Try using the syntax `if 5 < x < 10`. It's valid in numple!
+
+> [!IMPORTANT]
+> Crucial information necessary for users to succeed.
+
+> [!WARNING]
+> Even though you can name functions such as `pi(x) -> R` you probably shouldn't.
+
+> [!CAUTION]
+> Negative potential consequences of an action.
+```diff
+- text in red
++ text in green
+! text in orange
+# text in gray
+@@ text in purple (and bold)@@
 ```
-Error:
+
+Arguments did not meet the `where` constraint.
+```diff
+- Error:
 1 | npr(n, r) N, N -> N
 2 | where r <= n
     ^^^^^^^^^^^^
@@ -56,10 +82,15 @@ Error:
 Constraint not met. Found r = 1, n = 3.
 ```
 Arguments did not met type constraints.
+```diff
+- Error:
+1 | npr(n, r) N, N -> N
 
+Arguments have the wrong type. Got n = root(2) + pi
+```
 Output did not met type constraint.
 ```
-Error:
+- Error:
 1 | npr(n, r) N, N -> N
 
 Returned value does not meet type constraint 'N', got '6/9'
