@@ -67,7 +67,7 @@ Comments start with a capital letter and end with a period followed by a new lin
 # Names
 Names for functions and numbers start with a lower case letter and may include underscores and numbers. Names are not allowed to start with a number. 
 # Expressions
-An expression is anything with has a numerical value. For example `(2 + root(2) + pi) * 4^3 - 1/3 + i(5)`. Mathsy people will be happy to find that the syntax `5x` is allowed. However, statements such as `x5` are not allowed since this could be mistaken for the variable named `x5`. `5xy` is not allowed either since this could be mistaken as `5 * xy` where `xy` is the name of a number.
+An expression is any representation of a numeric value. For example `(2 + root(2) + pi) * 4^3 - 1/3 + i(5)`. Mathsy people will be happy to find that the syntax `5x` is allowed. However, statements such as `x5` are not allowed since this could be mistaken for the variable named `x5`. `5xy` is not allowed either since this could be mistaken as `5 * xy` where we have a number named `xy`.
 # Errors
 The general format for errors is the following.
 ```
