@@ -78,27 +78,7 @@ addition(5, 2 + root(2))
 
 ## Builtins.
 Functions:
-```
-i(x) R -> C
-re(c) C -> R
-im(c) C -> R
-ln(x) R -> R where x > 0
-abs(c) C -> R
-sin(x) R -> R
-cos(x) R -> R
-tan(x) R -> R where cos(x) != 0
-root(x) R -> R
-floor(x) R -> Z
-arcsin(x) R -> R where -1 <= x <= 1
-arccos(x) R -> R where -1 <= x <= 1
-arctan(x) R -> R
-```
-Constants:
-```
-e
-pi
-phi
-```
+
 These names are reserved and cannot be used. However, you are allowed to for example call a **number** `i = 2` even though there is the **function** `i(x)`.
 > [!Note]
 > Even though you can name a function `pi() -> R` you should avoid doing so becuase it can cause confusion.
