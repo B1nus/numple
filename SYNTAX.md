@@ -1,5 +1,5 @@
 # Functions
-Functions are declared with the function name, argument names, and return type:
+Functions are declared with it's name, arguments, and return type:
 ```rust
 sub(a, b) -> R
   return a - b
