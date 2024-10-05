@@ -1,4 +1,4 @@
-```rust
+```zig
 N Natural.
 Z Whole.
 Q Ratio.
