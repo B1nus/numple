@@ -62,6 +62,12 @@ if x = 0 and y = 0 or z = 0
   ...
 ```
 It can be read as `(x = 0 and y = 0) or z = 0` and `x = 0 and (y = 0 or z = 0)` which are not equivalent. When this happens in math you are forced to add parenthesis and numple is no different. The parser will throw an error if it detects an ambiguous statement and prompt the user to add parenthesis as shown [here](https://github.com/B1nus/numple/blob/readme/SYNTAX.md#ambiguous-if-statement).
+# Comments
+Comments start with a capital letter and end with a period followed by a new line. Comments can start
+# Names
+Names for functions and numbers start with a lower case letter and may include underscores and numbers. Names are not allowed to start with a number. 
+# Expressions
+An expression is anything with has a numerical value. For example `(2 + root(2) + pi) * 4^3 - 1/3 + i(5)`. Mathsy people will be happy to find that the syntax `5x` is allowed. However, statements such as `x5` are not allowed since this could be mistaken for the variable named `x5`. `5xy` is not allowed either since this could be mistaken as `5 * xy` where `xy` is the name of a number.
 # Errors
 The general format for errors is the following.
 ```
