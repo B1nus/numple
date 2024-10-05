@@ -123,9 +123,7 @@ x = x + 1
 ```
 Use functions to create loops:
 ```
-loop(10)
 loop(n) N -> N
-  n?
   if n <= 1
     return 1
   return loop(n - 1)
