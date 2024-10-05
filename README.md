@@ -1,5 +1,5 @@
 # numple
-A simple programming language made for doing math with numbers.
+A simple programming language for doing math with numbers.
 
 # Syntax
 The syntax is similar to mathematics:
