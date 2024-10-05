@@ -1,4 +1,5 @@
-Functions
+You cannot name a function by any of the builtin functions and you cannot name a number by any of the builtin constants. You can however for example name a **number** `i = 2` even though the builtin **function** `i()` exists. You can also for example name a **function** `e()` even though the constant `e` exists.
+# Functions
 ```rust
 i(x) R -> C
 re(c) C -> R
@@ -17,7 +18,7 @@ arcsin(x) R -> R where -1 <= x <= 1
 arccos(x) R -> R where -1 <= x <= 1
 arctan(x) R -> R
 ```
-Constants
+# Constants
 ```rust
 e
 pi
