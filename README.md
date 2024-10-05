@@ -100,6 +100,8 @@ pi
 phi
 ```
 These names are reserved and cannot be used. However, you are allowed to for example call a **number** `i = 2` even though there is the **function** `i(x)`.
+> [!Note]
+> Even though you can name a function `pi() -> R` you should avoid doing so becuase it can cause confusion.
 
 ## Keywords (reserved)
 ```
