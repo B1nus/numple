@@ -63,6 +63,14 @@ if x = 0 and y = 0 or z = 0
 ```
 It can be read as `(x = 0 and y = 0) or z = 0` and `x = 0 and (y = 0 or z = 0)` which are not equivalent. When this happens in math you are forced to add parenthesis and numple is no different. The parser will throw an error if it detects an ambiguous statement and prompt the user to add parenthesis as shown [here](https://github.com/B1nus/numple/blob/readme/SYNTAX.md#ambiguous-if-statement).
 # Errors and Warnings
+## Errors
+The general format for errors is the following.
+```
+Error in factorial.nm
+3 | x = hello(5)
+        ^^^^^
+Function hello() not found.
+```
 ## Functions
 
 
@@ -102,14 +110,22 @@ Error:
 
 Returned value does not meet type constraint 'N', got '6/9'
 ```
+Wrong number of arguments.
+```
+Error:
+5 | npr(5)?
+
+Function npr() expected 2 arguments, got 1. Function declaration:
+1 | npr(n, r) N, N -> N
+```
 ## Parser
 The parser needs to keep track of the file, line and columns of every token. This is needed to give helpful errors with underlining.
 ### Ambiguous if statement
 ```
-Error:
-file: 6 | if x = 0 and y = 0 or z = 0
+Error in filename.nm
+6 | if x = 0 and y = 0 or z = 0
 
-Detected ambiguous if statements. Please add parenthesis.
+Detected ambiguous if statement. Please add parenthesis.
 ```
 ## Compiler
 ## Runtime
