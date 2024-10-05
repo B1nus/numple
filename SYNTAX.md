@@ -61,7 +61,7 @@ This code only outputs the value for x if its value is between minus one and plu
 if x = 0 and y = 0 or z = 0
   ...
 ```
-It can be read as `(x = 0 and y = 0) or z = 0` and `x = 0 and (y = 0 or z = 0)` which are not equivalent. When this happens in math you are forced to add parenthesis and numple is no different. The parser will throw an error if it detects an ambiguous statement and prompt the user to add parenthesis as shown [here]([#Amgigous if statement](https://github.com/B1nus/numple/readme/SYNTAX.md#ambiguous-if-statement)).
+It can be read as `(x = 0 and y = 0) or z = 0` and `x = 0 and (y = 0 or z = 0)` which are not equivalent. When this happens in math you are forced to add parenthesis and numple is no different. The parser will throw an error if it detects an ambiguous statement and prompt the user to add parenthesis as shown [here](https://github.com/B1nus/numple/blob/readme/SYNTAX.md#ambiguous-if-statement).
 # Errors and Warnings
 ## Functions
 
