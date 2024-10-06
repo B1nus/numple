@@ -1,5 +1,5 @@
 # numple
-A simple programming language I made to help me with my math homework.
+A simple programming language made to help me with my math homework.
 > [!NOTE]
 > Numple is a very simple language. It has functions, if statements and numbers but that's about it. This is mostly by design.
 # Syntax
