@@ -50,3 +50,8 @@ All builting operations and functions should have rules for simplification. For 
 `phi = (1 + root(5)) / 2`
 # Operations
 `a % b = a - b * floor(a / b)`
+
+# TEMPORARY SHIT FOR ME TO REMEMBER RIGHT NOW
+Do not stop the program because of a silly syntax error. Remember it, and parse every other line as well. I want good and helpful errors.
+Also, make sure to make the lexer understand the simple syntax. Also also, it really shouldn't do any validation, it should be very dumb indeed.
+e10 syntax not needed, literaly just write 5.6*10^10, I prefer this.
