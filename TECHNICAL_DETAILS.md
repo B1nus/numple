@@ -56,3 +56,4 @@ Do not stop the program because of a silly syntax error. Remember it, and parse 
 Also, make sure to make the lexer understand the simple syntax. Also also, it really shouldn't do any validation, it should be very dumb indeed.
 e10 syntax not needed, literaly just write 5.6*10^10, I prefer this.
 indentation just needs to be the same. No matter if it's tabs, or spaces.
+I'm going to remove the 5x syntax. It's being a bitch.
