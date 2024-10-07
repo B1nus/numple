@@ -15,6 +15,13 @@ npr(n, r) N, N -> N
 where r <= n
   return n! / (n - r)!
 ```
+Returning multiple values works as you'd expect:
+```rust
+switch(a, b) N, N -> N, N
+  return b, a
+
+a, b  = switch(a, b)
+```
 ## Entrypoint
 A function named after the file acts as the entrypoint to the program. Command line arguments are passed to this function. Let this be the contents of factorial.nm:
 ```rust
