@@ -76,6 +76,7 @@ All builting operations and functions should have rules for simplification. For 
 [Grammar visualiser](https://dundalek.com/GrammKit/)
 [Some EBNF Grammar](https://dzone.com/articles/ebnf-how-to-describe-the-grammar-of-a-language)
 [Python lexer analysis](https://docs.python.org/3.3/reference/lexical_analysis.html#indentation)
+[Python parser internals](https://github.com/python/cpython/blob/main/InternalDocs/parser.md)
 ## lexer analysis notes
 - blank lines are ignore (no token generated)
 - each tab is replaced by spaces so that the total number is a multiple of eight.
