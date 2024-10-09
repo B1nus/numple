@@ -55,6 +55,8 @@ All builting operations and functions should have rules for simplification. For 
 `a % b = a - b * floor(a / b)`
 
 # Links
+[Zig tokenizer](https://mitchellh.com/zig/tokenizer#from-tokens-to-trees)
+[Zig tokenizer source](https://github.com/ziglang/zig/blob/master/lib/std/zig/tokenizer.zig)
 [Grammar visualiser](https://dundalek.com/GrammKit/)
 [Some EBNF Grammar](https://dzone.com/articles/ebnf-how-to-describe-the-grammar-of-a-language)
 [Python lexer analysis](https://docs.python.org/3.3/reference/lexical_analysis.html#indentation)
@@ -64,6 +66,7 @@ All builting operations and functions should have rules for simplification. For 
 - any character other than tabs or spaces is ignored.
 - mixing tabs and spaces is not allowed if it makes the equivalent number of spaces ambiguous.
 - most indentation errors are handled by the parser. The lexer only checks that INDENT is equal to DEDENT.
+Below follows an exempt from the python article describing how the lexer keeps track of indentation:
 > Before the first line of the file is read, a single zero is pushed on the stack; this will never be popped off again. The numbers pushed on the stack will always be strictly increasing from bottom to top. At the beginning of each logical line, the line’s indentation level is compared to the top of the stack. If it is equal, nothing happens. If it is larger, it is pushed on the stack, and one INDENT token is generated. If it is smaller, it must be one of the numbers occurring on the stack; all numbers on the stack that are larger are popped off, and for each number popped off a DEDENT token is generated. At the end of the file, a DEDENT token is generated for each number remaining on the stack that is larger than zero
 
 # Note to self
