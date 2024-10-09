@@ -18,6 +18,22 @@ pub fn main() void {
     stdout.print("{s}Error: Something went wrong{s}\n", .{ bold_red, reset }) catch {};
 }
 ```
+Hmm... Should we allow functions to have the same name if they have a different amount of arguments?
+# Errors
+## load file (parser stage)/(lexer stage)
+- Could not find file
+- Redeclaration of function
+- errors inside of loaded file (including load errors in the loaded file) Yes recursion
+### Warnings
+- imported file causes/has shadowing.
+## $ numple load
+- Could not find github repository
+- Does not contain numple code (no .nm files found)
+- Folder already exists and is not empty
+# Import Loop
+Say I import a file `load factorial` and in the file factorial I import `load filename` where filename i the first files name. Then we have a problem,
+# Installing "packages"
+Use the command `$ numple load https://github.com/.../...` to install numple code from the internet. The code is installed in a folder named the same as the git repo. For possible errors see []().
 # Shadowing
 Shadowing can occur in two situations. If you're making a new number with the same name as before or you're using an argument name with already exists as a number.
 ```
