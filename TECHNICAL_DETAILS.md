@@ -1,4 +1,7 @@
 # Errors
+Please remember to put all syntax errors inside the parser, not the compiler or interpreter. When the parser is done we should have fully valid numple code as an AST or the errors should be displayed one by one in the terminal with locations and helpful, simple explainations.
+
+Do not let one error go over to the next line. That would be very annoying. The only expection is indentation errors which are going to be a pain in the ass for new programmers, Sorry. I don't think I can do anything about that while avoiding brackets.
 ## Error location
 Keep information on which file and line the error occurs. The filename and line should be correct even though it's imported code through the `load` keyword.
 ## Error Formatting (ANSI excape codes)
@@ -51,8 +54,20 @@ All builting operations and functions should have rules for simplification. For 
 # Operations
 `a % b = a - b * floor(a / b)`
 
-# TEMPORARY SHIT FOR ME TO REMEMBER RIGHT NOW
+# Links
+[Grammar visualiser](https://dundalek.com/GrammKit/)
+[Python lexer analysis](https://docs.python.org/3.3/reference/lexical_analysis.html#indentation)
+## lexer analysis notes
+- blank lines are ignore (no token generated)
+- each tab is replaced by spaces so that the total number is a multiple of eight.
+- any character other than tabs or spaces is ignored.
+- mixing tabs and spaces is not allowed if it makes the equivalent number of spaces ambiguous.
+- most indentation errors are handled by the parser. The lexer only checks that INDENT is equal to DEDENT.
+> Before the first line of the file is read, a single zero is pushed on the stack; this will never be popped off again. The numbers pushed on the stack will always be strictly increasing from bottom to top. At the beginning of each logical line, the line’s indentation level is compared to the top of the stack. If it is equal, nothing happens. If it is larger, it is pushed on the stack, and one INDENT token is generated. If it is smaller, it must be one of the numbers occurring on the stack; all numbers on the stack that are larger are popped off, and for each number popped off a DEDENT token is generated. At the end of the file, a DEDENT token is generated for each number remaining on the stack that is larger than zero
+
+# Note to self
 Do not stop the program because of a silly syntax error. Remember it, and parse every other line as well. I want good and helpful errors.
 Also, make sure to make the lexer understand the simple syntax. Also also, it really shouldn't do any validation, it should be very dumb indeed.
 e10 syntax not needed, literaly just write 5.6*10^10, I prefer this.
-indentation just needs to be the same. No matter if it's tabs, or spaces. <https://docs.python.org/3.3/reference/lexical_analysis.html#indentation>
+indentation just needs to be the same. No matter if it's tabs, or spaces.
+All syntax errors should be in the parser, not the interpreter or compiler.
