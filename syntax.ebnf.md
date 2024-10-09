@@ -1,47 +1,91 @@
 # numple EBNF grammar declaration
 The syntax for indentation is the same as in (pythons grammar)[https://docs.python.org/3/reference/grammar.html]. It is described in detail in their article on [lexical analysis](https://docs.python.org/3.3/reference/lexical_analysis.html#indentation). In short, the token INDENT and DEDENT convey an increase or decrease in indentation. A code block is therefore started by an INDENT token and ended by a DEDENT token.
 
-```
+```bnf
 program
-  : (statement)+
-  ;
+    : (statement)+
+    ;
 
 newline
-  : '\n'
-  | '\r\n'
-  ; '\r'
+    : '\n'
+    : '\r\n'
+    : '\r'
+    ;
 
 comment
-  : newline indentation? ['A'-'Z'] [0-255]* '.' newline
-  ;
+    : newline [A-Z] [0-255]* '.' newline
+    ;
 
 block
-  : INDENT statement+ DEDENT
-  ;
+    : newline INDENT statement+ DEDENT
+    ;
+
+type
+    : 'N'
+    : 'Z'
+    : 'Q'
+    : 'R'
+    : 'C'
+    ;
 
 statement
-  : 'if' boolean_expr INDENT statement+
-  : 'if' boolean_expr INDENT statement+ DEDENT 'else' INDENT statement+ DEDENT
-  : 'if' boolean_expr INDENT statement+ DEDENT ('else' 'if' INDENT statement+ DEDENT)+
-  : 'if' boolean_expr INDENT statement+ DEDENT ('else' 'if' INDENT statement+ DEDENT)+ 'else' INDENT statement+ DEDENT
-  : identifier '=' expression newline
-  : identifier (',' identifier)+ '=' expression (',' expression)+
-  : identifier '(' ( identifier (',' identifier)* )? ')'
-  : 'return' expression newline
-  : 'return' expression (',' expression)*
-  : 'load' filename newline
-  ;
+    : 'if' boolean block ('else' 'if' boolean block)* ('else' block)? newline
+    : identifier, (',' identifier)* '=' expression (',' expression)* newline
+    : identifier, '(' function_arguments ')' type? (',' type)* '->' type (',' type)* newline ('where' boolean newline)? block
+    : 'return' expression (',' expression)* newline
+    : expression '?' newline
+    : 'load' identifier newline
+    ;
 
-boolean_expr
-  : 'not'? expression boolean_operator expression
-  : 'not'? boolean_chain_Expr
+boolean
+    : boolean 'or' boolean
+    : boolean 'and' boolean
+    : 'not' boolean
+    : '(' boolean ')'
+    : comparison
+    ;
 
-boolean_chain_expr
+comparison
+    : expression ('=' | '!=' | '>' | '>=' | '<' | '<=') expression
+    : expression ('<' | '<=') expression ('<' | '<=') expression
+    : expression ('>' | '>=') expression ('>' | '>=') expression
+    ;
 
-boolean_operator
-  : '='
-  : '!='
-  : ''
+identifier
+    : [a-z], [a-z0-9_]*
+    ;
+
+function_arguments
+    : identifier? (',' identifier)*
+    ;
+
+expression
+    : expression ('+' | '-') term
+    : ('+' | '-')? term
+    ;
+
+term
+    : factor (('*' | '/' | '%') factor)+
+    : factor
+    ;
+
+factor
+    : base '^' base
+    : base
+    ;
+
+base
+    : '(' expression ')'
+    : base, '!'
+    : identifier
+    : number?, [a-z_]+
+    : identifier, '(' expression? (',' expression)* ')'
+    ;
+
+number
+    : [0-9]+
+    : [0-9]+, ('.' | ','), [0-9]+
+    ;
 ```
 # Note to self
 - Don't forget the 5 < x < 10 syntax
