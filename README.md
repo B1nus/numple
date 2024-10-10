@@ -1,190 +1,157 @@
 # numple
-A simple programming language made to help me with my math homework.
-> [!NOTE]
-> Numple is a very simple language. It has functions, if statements and numbers but that's about it. This is mostly by design.
-# Syntax
-The syntax is similar to mathematics:
+A simple programming language to help me with my math homework.
+
+# First Version
+To help me get a first version of the language up and running I will remove some features. The following will be temporarily removed:
+- Type declarations. Functions only take real numbers as arguments and return one real number.
+- Complex numbers
+- Multiple return
+- Multiple assign
+- The `where` keyword
+- Compiler
+# Command Line Interface
+The command line interface tool is called **numple**. Running `$ numple` without any arguments initializes an interactive **numple** session, otherwise known as [REPL](#REPL). Read more about the **numple** REPL in the header below.
+## REPL
+REPL (Read Evaluate Print Loop) is a collective term for interactive shells to programming languages. Python has one, Ruby has one, Julia has one and **numple** has one to. Inside of the REPL you can write **numple** code, import code with the `load` keyword and run your code in the interactive shell. Here's an example of an interactive **numple** session:
+```rust
+$ numple
+Welcome to numple's interactive shell!
+>>> x = root(5)
+>>> x?
+2 | x = root(5) ~ 2.236
+>>> if x = root(5)
+  |     x = 2
+  |
+>>> x?
+7 | x = 2
+>>> 
 ```
-sub(a, b) R, R -> R
-  return a - b
-```
-Feel free to skip the type declaration:
-```
-sub(a, b) -> R
-  return a - b
-```
-## Numbers
-The types in numple are the same as in math. We have N, Z, Q, R and C.
-```
-n = 0
-z = -1
-q = 1/3
-r = pi ^ 2
-c = 3 + i(8)
+# Parser
+## Namespace
+**numple** has a few builtin functions and constants. You are not allowed to use these identifiers when defining numbers or functions respectively. You are however allowed to name a function by a builtin constants name and a number by a builtin functions name. For example naming your number `i = 2` is allowed. Or for example naming a function: `phi(x) -> R`. Below are all of the builtin functions in **numple**:
+```ocaml
+i(C) C -> C
+re(c) C -> R
+im(c) C -> R
+ln(c) C -> C where abs(c) != 0
+abs(c) C -> R
+arg(c) C -> R where im(c) != 0
+sin(c) C -> C
+cos(c) C -> C
+tan(c) C -> C
+min(x, y) R, R -> R
+max(x, y) R, R -> R
+root(c) C -> C
+root(c, n) C, N -> C where n > 0
+floor(x) R -> Z
+arcsin(c) C -> C
+arccos(c) C -> C
+arctan(c) C -> C
 ```
 
-Ask for the value of an expression with a question mark.
-```
-x = 2 * 2
-x?
-```
-```
-$ nm filename.nm
-at line 2 | x = 2 * 2 = 4
-```
-
-## If statements
-```
-if x = 5
-  x?
-```
-Ambiguous boolean expressions need parenthesis. This statement is ambiguous and the interpreter will throw an error:
-```
-if x = 5 and y = 6 or z = 7
-```
-Use parenthesis like so:
-```
-if (x = 5 and y = 6) or z = 7
-```
-The priority rules for boolean expres   sions are the same as math.
-
-## Comments.
-This is going to ruffle some feather. Comments start with a capital letter and end with a period followed by a newline.
-```
-Hello, this is a comment. This will keep being
-a comment until I type a period and a newline.
-
-x = 2 + 2
-```
-It follows that functions and numbers only use lowercase letters.
-
-## Import a file.
-```
-load file
-```
-The file contents are simply copied into the current file before parsing.
-
-## Command line arguments
-Name a function the same as your file to access command line arguments:
-```
-addition(a, b) R, R -> R
-  return a + b
-```
-```
-$ numple addition.nm 5, 2 + root(2)
-addition(5, 2 + root(2))
-= 7 + root(2)
-≈ 8.41421
-```
-
-## Builtins.
-These names are reserved and cannot be used. However, you are allowed to for example call a **number** `i = 2` even though there is the **function** `i(x)`.
-> [!Note]
-> Even though you can name a function `pi() -> R` you should avoid doing so becuase it can cause confusion.
-
-## Keywords (reserved)
-```
-if
+**numples** builtin constants are `e, pi, phi` and **numples** keywords are the following:
+```python
 or
+if
+is
 not
 and
+load
+loop
 else
 where
 return
-load
 ```
+And here are all recognized symbols in **numple**:
+```ocaml
+N
+Z
+Q
+R
+C
+,
+(
+)
+->
+?
++
+-
+*
+/
+^
+%
+!
+=
+!=
+<
+<=
+>
+>=
+```
+## Implicit multiplication
+With single letter identifiers, implicit multiplication is allowed: `5xyz = 5 * x * y * z`. In this example the parser throws an error if the identifier `xyz` exists. Implicit multiplication with number literals on the left side of the multiplication is also fine. This means that: `5xy` is fine and that: `xy5` is not. However `(xy)5` is fine. In general the use of an asterix is encouraged. The implicit multiplication is just for convenience.
+## Indentation
+I used [this python article](https://docs.python.org/3.3/reference/lexical_analysis.html#indentation) as reference, however I have some other ideas on how to implement this. Whitespace is always ignored unless it is after a newline, this whitespace is otherwise known as indentation. The whitespace is counted and an `INDENT` token is output by the lexer. When the indentation is decreased, a `DEDENT` token is returned. Empty lines are ignored and do not generate any tokens.
 
-# Hmm... it seems that we're missing some features?
-Do you want mutability? Maybe strings? Or how about loops? Too bad. This language is made for one thing: **Numbers**. Use shadowing to change values:
-```
-x = 1
-x = x + 1
-```
-Use functions to create loops:
-```
-loop(n) N -> N
-  if n <= 1
-    return 1
-  return loop(n - 1)
-```
-Welcome to functional programming.
-# Extra details
-## Functions
-Sometimes you want to add extra requirements for the input. Use the `where` keyword:
-```
-sub(a, b) N, N -> N
-where b >= a
-  return a - b
-```
-## Numbers
-Numbers in muple are interpreted as expressions. Not floats and not integers. This means that the famous:
-```
-if 0.1 + 0.2 = 0.3
-  ...
-```
-Is actually true in numple. It understands this statement as `if 1/10 + 1/5 = 3/10` which is in fact true.
+The amount of indentation for a line is calculated by the following algorithm. Iterate through each character one by one. Each space adds one indentation. Each tab adds 1 to 4 spaces in order to make that total number of spaces until that point a multiple of 4. This is in order to account for code editors performing this same behavious with tabs.
 
-Also note that this boolean expression works as it would in math:
-```
-if 1 < x < 5
-  x?
-```
-## Command line arguments
-The entry point function works like any other ordinary function. This means that numbers defined before the function declaration can be used as arguments:
-```
-six = 6
-filename(x) N -> N
-  ...
-```
-`$ numple filename.nm six`
+The generation of INDENT and DEDENT tokens is done through the following algorithm described in python's [lexical analysis](https://docs.python.org/3.3/reference/lexical_analysis.html#indentation). This is done after the first pass of the lexer.
+1. Push 0 onto the stack.
+2. Compare the current lines indentation to the stack. If the current lines indentation is greater: generate a INDENT token, if it is less: generate a DEDENT token.
+3. Push the indentation to the stack if it was a INDENT token.
+4. Or pop the stack until the indentation is less than or equal if it was a DEDENT token. If the same indentation level is not on the stack, log a indentation error and keep going.
+5. Repeat step 2 until the end of the file.
+## Ambiguous if statements
+Parenthesis are sometimes needed in order to avoid ambiguity in boolean expressions. For example the boolean expression `_ and _ or _` is ambiguous. It could be interpreted as either: `(_ and _) or _` or: `_ and (_ or _)` which are logically distinct boolean statements. The parser will throw an error is such a statement is found. Please note that the precedence rules for boolean expression in **numple** are the same as in math, that is:
+1. parenthesis
+2. not
+3. and/or
+This means that the statements such as: `not _ and _` are well defined. Also note that statements such as: `_ and _ and _` or: `_ or _ or _` are well defined.
+## Errors
+In order to give useful errors, the parser needs to keep track of where the error occurs. The parser errors also need to account for the origin of imported code. In general, try to log errors instead of exiting the program, it is annoying to fix an indentation error only to be met with another when you try to parse it again.
 
-Same goes for **all** functions you declared in the file.
-
-# Note to self
-These should not have to be in the readme. However, consider making the code easy enough to read this from source.
-## Shadowing
-Warn for shadowing with function args.
-Also warn for normal shadowing. But only once.
-## Printing
-Hmm, how to format? I think formatting as numple is the best, simple and has the benefit of being easy to copy paste into the code. Don't forget to print a decimal representation with the tilde. Output: `at line 3 | x = pi + 2 ~ 5.14159...`. Don't forget to remove the `...` and `~` if the decimal expansion is actually not infinite or shorter than `x` in length.
-Should the output of a filename function have the arguments included or no? What if the other print statements bury the commandline arguments so you can't see them anymore? Also what if the argiments are really long? I got it. If there are to many print statements before the output we print the input. And if the einput is to long we split it across more lines.
+Also, don't forget to format the errors nicely and give good coloring and styling with [ANSI escape codes](https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_(Select_Graphic_Rendition%29_parameters). For example `bold_red="\x1b[;31m"` to make text red and bold in the terminal.
+# Interpreter
+## Runtime Errors
+A few runtime errors can occur in **numple**. Since the parser has checked that the syntax is correct. The only things that can go wrong is regarding invalid expressions and Type mismatches. I.E. Division by zero and invlalid function arguments.
+# Links
+- [Zig tokenizer](https://mitchellh.com/zig/tokenizer#from-tokens-to-trees)
+- [Zig tokenizer source](https://github.com/ziglang/zig/blob/master/lib/std/zig/tokenizer.zig)
+- [Grammar visualiser](https://dundalek.com/GrammKit/)
+- [Some EBNF Grammar](https://dzone.com/articles/ebnf-how-to-describe-the-grammar-of-a-language)
+- [Python lexer analysis](https://docs.python.org/3.3/reference/lexical_analysis.html#indentation)
+- [Python parser internals](https://github.com/python/cpython/blob/main/InternalDocs/parser.md)
+- [Arithmetic expresison simplifications](http://www.semdesigns.com/Products/DMS/SimpleDMSDomainExample.html#TransformationRules)
+- [Rational number simplification](https://en.wikipedia.org/wiki/Euclidean_algorithm)
+- [complex log](https://proofwiki.org/wiki/Definition:Natural_Logarithm/Complex)
+- [complex arcsin](https://proofwiki.org/wiki/Definition:Inverse_Sine/Complex)
+- [complex arctan](https://proofwiki.org/wiki/Definition:Inverse_Tangent/Complex)
+- [complex sin](https://proofwiki.org/wiki/Sine_of_Complex_Number)
+# Possible Considerations
+## Type Declaration
+I have an idea for a more expressive way of declaring the input to a function. It uses the `where` keyword as well as a new `is` keyword. The `is` keyword checks the type of a number at runtime and is used in the following way:
+```ocaml
+function(x, y) R, R -> R
+where x is not Q and y is not Q
 ```
-$ num filename.nm root(3) * pi * e * number, hello * 3^5 * root(6) * 8
-at line 5 | i = 5
-at line 5 | i = 6
-at line 5 | i = 7
-at line 5 | i = 8
-at line 10 | pi = 10
+This is a way to express the input as all *irrational* numbers.
+## Staticily Typed
+In math, you often declare the type of a number. What of you could do the same in numple? Since all values are immutable, the type should never be able to change anyway.
+## Multiple Dispatch
+It is sometimes convenient to name two functions by the same name but keep different declarations. I currently have two builtin `root` functions. One which is the squareroot, and the other which takes two arguments, the radicand and the level of the root. I'm still on the fence about this idea, I feel like it could cause confusion.
+## Loops
+I have an idea for a simple loop syntax. You only have one keyword `loop` and the keyword `break` and `continue`. Writing a for  loop in this syntax would be following:
 ```
-
-Don't forget to make debugging easy. Filenames, lines and columns and sensible errors. Don't find one missing character on one line and ignore the rest, find them all and tell the user.
-## Importing
-Simply paste the file contents into the new file. Don't forget to keep the right filename and line number in the errors and debug thingies.
-## Expression logic
-- Polar form `c = 5 * e^i(pi)` or cartesian `c = 5 * (cos(pi) + i(sin(pi)))`
-- Find a ratio simplifier algorithm online.
-- Don't forget modulo. a % b = a - b * floor(a/b) (N, N -> N)
-- Operation priority should be the same as math in both arithmetic and boolean expressions.
-## Expression Parser
-The parser should always recognize the expression as it's simplest type. That means it should understand that:
-- `root(4) = 2` `sin(pi / 6) = 1/2` `floor(6/7) = 0` etc...
-- `10/5 = 2`
-- `a * ... * a = a^n`
-- `i^3 = -i` `i^4 = 1` etc...
-- `69/23 = 3` `26/4 = 13/2`
-- `0.15 = 3/20`
-- `16 + 4 = 20`
-- `root(2) * root(2) = root(4) = 2`
-- etc...
-Here's [a website to help you](http://www.semdesigns.com/Products/DMS/SimpleDMSDomainExample.html#TransformationRules).
-[Use these to simplify sin,cos and tan expressions](https://en.wikipedia.org/wiki/Exact_trigonometric_values)
-## Compiler and Interpreter
-Keep the parser and compiler separate. All errors about syntax should be handled in the parsing stage to avoid code duplication.
-Interpreter command:
-`$ numple factorial.nm 12`
-Compiler command (Only for x86_64 linux):
-`$ numple -c factorial.nm`
-### Warnings
-Shadowing function arguments
-## README
-Consider removing some stuff from here. The where keyword and the fact that you can omit type for the input should not be something a complete beginner of the language should think about.
+loop 1..10 i
+    i?
+```
+Writing a while loop would be the following:
+```
+stop = false
+loop
+    break if stop
+```
+## One indexed
+I think that choosing the 5'th element by typing `list[5]` is intuitive. The same logic would apply to ranges. The range `1..5` would be the number `1, 2, 3, 4, 5`. And the slice `list[1..5]` would be the 5 first elements in the list.
+## LLVM
+It's either llvm or only letting linux users compile numple programs. Or... Hear me out... just don't make a compiler.
