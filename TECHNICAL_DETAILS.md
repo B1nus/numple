@@ -67,6 +67,7 @@ Outputs `4 | x = 2`.
 
 # Expressions
 ## Simplifications
+Lmao, Euklides algorithm for simplifying rationals: `$\frac{\frac{a}{sgd(a,b)}}{\frac{b}{sgd(a,b)}}$`
 All builting operations and functions should have rules for simplification. For example that `2 + 2 = 4`, `root(2) * root(2) = 2`, `sin(pi / 6) = 1/2`, `n! * (n + 1) = (n + 1)!`, `n! / (n - r)! = (n - r + 1) * (n - r + 2) * ... * (n)` etc... There are [resources](http://www.semdesigns.com/Products/DMS/SimpleDMSDomainExample.html#TransformationRules) for achieving this. However, I believe making a perfect expression simplifier is impossible. A good idea is to make adding simplification rules easy so other people can add rules.
 # Builtins
 `phi = (1 + root(5)) / 2`
@@ -96,4 +97,4 @@ Below follows an exempt from the python article describing how the lexer keeps t
 - e10 syntax not needed, literaly just write 5.6*10^10, I prefer this.
 - indentation just needs to be the same. No matter if it's tabs, or spaces.
 - All syntax errors should be in the parser, not the interpreter or compiler.
-- Fk, fivision by zero.
+- Fk, division by zero. Alright. Add a display value as (undefined) for this.
