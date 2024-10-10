@@ -1,3 +1,0 @@
-sub(a, b) N, N -> N
-where b <= a
-    return a - b

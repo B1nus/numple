@@ -1,8 +1,0 @@
-interval_factorial(i, n) N, N -> N
-where i <= n
-  if i = n
-    return n
-  return max(i, 1) * factorial(i + 1, n)
-
-factorial(n) N -> N
-  return ranged_factorial(1, n)
