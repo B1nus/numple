@@ -1,4 +1,6 @@
 remove typer annotations for now. also remove where for now. also remove expression simplification for now. also remove ? for now. also remove complex numners for now.
+# REPL
+load should work as normal. also, don't fortet indentation and multiline statements (IF and funcs)
 # Errors
 Please remember to put all syntax errors inside the parser, not the compiler or interpreter. When the parser is done we should have fully valid numple code as an AST or the errors should be displayed one by one in the terminal with locations and helpful, simple explainations.
 
