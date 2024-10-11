@@ -38,7 +38,7 @@ Welcome to numple's interactive shell!
 ## Namespace
 You are not allowed to name your functions or numbers the same as **numple's** builtin functions and constants.
 > [!NOTE]
-> You are however allowed to name a function by a builtin constants name and a number by a builtin functions name. For example naming your number `i = 2` and your function `phi(x) -> R` is allowed.
+> You are allowed to name a function by a builtin constants name and a number by a builtin functions name. For example naming your number `i = 2` and your function `phi(x) -> R` is allowed.
 
 ### Builtin Functions
 Below are all of the builtin functions in **numple**:
@@ -131,7 +131,7 @@ Also, don't forget to format the errors nicely and give good coloring and stylin
 Please keep in mind that people who use **numple** should not need to understand the interpreter in order to understand **numple's** errors. Keep errors simple and straight to the point. For example: let's say an if statement is missing a code block, then the error should simply say `If statement is missing code`. It should **not** say `Parser expected INDENT token after boolean expression`.
 # Interpreter
 ## Runtime Errors
-A few runtime errors can occur in **numple**. Since the parser has checked that the syntax is correct. The only things that can go wrong is regarding invalid expressions and Type mismatches. For example division by zero and invalid function arguments.
+A few runtime errors can occur in **numple**. Since the parser has checked that the syntax is correct the only errors are regarding undefined numeric expressions and type mismatches. For example division by zero and invalid function arguments.
 # Links
 - [Zig tokenizer](https://mitchellh.com/zig/tokenizer#from-tokens-to-trees)
 - [Zig tokenizer source](https://github.com/ziglang/zig/blob/master/lib/std/zig/tokenizer.zig)
