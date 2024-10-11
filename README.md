@@ -1,19 +1,27 @@
 # numple
 A simple programming language to help me with my math homework.
 
-# First Version
-To help me get a first version of the language up and running I will remove some features. The following will be temporarily removed:
-- Type declarations. Functions only take real numbers as arguments and return one real number.
-- Complex numbers
-- Multiple return
-- Multiple assign
-- The `where` keyword
-- Compiler
+> [!WARNING]
+> To help me get a first version of the language up and running I will remove some features. The following will be temporarily removed:
+> - Type declarations.
+> - Complex numbers.
+> - Natural, Whole and rational numbers.
+> - Expression evaluation.
+> - Expression simplification.
+> - Multiple return.
+> - Multiple assign.
+> - The `where` keyword.
+> - Compiler.
+> - Command line tool.
 # Command Line Interface
-The command line interface tool is called **numple**. Running `$ numple` without any arguments initializes an interactive **numple** session, otherwise known as [REPL](#REPL). Read more about the **numple** REPL in the header below.
+The command line interface tool is called **numple**. Running the command `$ numple` initializes an interactive shell where you can write **numple** code. Read more about **numple's** interactive shell int the [header](#REPL) below.
+
+To run a numple program written in a file, run `$ numple filename.nm`. This will run the numple code and print the output to the terminal.
+## Entry Point
+A function named the same as the file is considered the entry point of the program. This means that this function is called when running the program with the command `$ numple program.nm`. This is the only way to access command line argument in **numple** programs. Pass arguments to the entry point function with the command `$ numple program.nm 5, 6`. Please note that all expressions are allowed in command line arguments: `$ numple program.nm root(2), 3`.
 ## REPL
-REPL (Read Evaluate Print Loop) is a collective term for interactive shells to programming languages. Python has one, Ruby has one, Julia has one and **numple** has one to. Inside of the REPL you can write **numple** code, import code with the `load` keyword and run your code in the interactive shell. Here's an example of an interactive **numple** session:
-```rust
+REPL [(Read Evaluate Print Loop)](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop) is a collective term for interactive shells to programming languages. Python has one, Ruby has one, Julia has one and **numple** has one to. Inside of the REPL you can write **numple** code, import code with the `load` keyword and run your code in the interactive shell. Here's an example of an interactive **numple** session:
+```
 $ numple
 Welcome to numple's interactive shell!
 >>> x = root(5)
@@ -28,8 +36,13 @@ Welcome to numple's interactive shell!
 ```
 # Parser
 ## Namespace
-**numple** has a few builtin functions and constants. You are not allowed to use these identifiers when defining numbers or functions respectively. You are however allowed to name a function by a builtin constants name and a number by a builtin functions name. For example naming your number `i = 2` is allowed. Or for example naming a function: `phi(x) -> R`. Below are all of the builtin functions in **numple**:
-```ocaml
+You are not allowed to name your functions or numbers the same as **numple's** builtin functions and constants.
+> [!NOTE]
+> You are however allowed to name a function by a builtin constants name and a number by a builtin functions name. For example naming your number `i = 2` and your function `phi(x) -> R` is allowed.
+
+### Builtin Functions
+Below are all of the builtin functions in **numple**:
+```
 i(C) C -> C
 re(c) C -> R
 im(c) C -> R
@@ -48,9 +61,11 @@ arcsin(c) C -> C
 arccos(c) C -> C
 arctan(c) C -> C
 ```
-
-**numples** builtin constants are `e, pi, phi` and **numples** keywords are the following:
-```python
+### Builtin Constants
+**numple's** builtin constants are `e, pi, phi`.
+### Keywords
+**numple's** keywords are the following:
+```diff
 or
 if
 is
@@ -62,8 +77,9 @@ else
 where
 return
 ```
-And here are all recognized symbols in **numple**:
-```ocaml
+### Symbols
+Here are all symbols recognized by **numple**:
+```
 N
 Z
 Q
@@ -89,31 +105,33 @@ C
 >=
 ```
 ## Implicit multiplication
-With single letter identifiers, implicit multiplication is allowed: `5xyz = 5 * x * y * z`. In this example the parser throws an error if the identifier `xyz` exists. Implicit multiplication with number literals on the left side of the multiplication is also fine. This means that: `5xy` is fine and that: `xy5` is not. However `(xy)5` is fine. In general the use of an asterix is encouraged. The implicit multiplication is just for convenience.
+Implicit multiplication is feature in **numple**. The parser can understand that the expression `5xyz` is meant to represent `5 * x * y * z`. This does however introduce ambiguity into **numple's** syntax since the expression could also be interpreted as `5 * xyz` where `xyz` is the name of a number. In cases of such ambiguity the parser throws an error. Implicit multiplication also works with numeric literals `5x = 5 * x`. However, expressions such as `x5` are not interpreted as implicit multiplication. Implicit multiplication takes precedence over explicit multiplication. This means that `6/5xy` is interpreted as `6 / (5 * x * y)` and not `6 / 5 * x * y`.
 ## Indentation
-I used [this python article](https://docs.python.org/3.3/reference/lexical_analysis.html#indentation) as reference, however I have some other ideas on how to implement this. Whitespace is always ignored unless it is after a newline, this whitespace is otherwise known as indentation. The whitespace is counted and an `INDENT` token is output by the lexer. When the indentation is decreased, a `DEDENT` token is returned. Empty lines are ignored and do not generate any tokens.
-
-The amount of indentation for a line is calculated by the following algorithm. Iterate through each character one by one. Each space adds one indentation. Each tab adds 1 to 4 spaces in order to make that total number of spaces until that point a multiple of 4. This is in order to account for code editors performing this same behavious with tabs.
-
-The generation of INDENT and DEDENT tokens is done through the following algorithm described in python's [lexical analysis](https://docs.python.org/3.3/reference/lexical_analysis.html#indentation). This is done after the first pass of the lexer.
+Similar to python, **numple** handles indentation with the tokens `INDENT` and `DEDENT`. A code block starts with the `INDENT` token and ends with the `DEDENT` token. The generation of the indentation tokens is done through a similar algorithm to the one described in python's [lexical analysis](https://docs.python.org/3.3/reference/lexical_analysis.html#indentation). Below is my modified version of that algorithm:
 1. Push 0 onto the stack.
-2. Compare the current lines indentation to the stack. If the current lines indentation is greater: generate a INDENT token, if it is less: generate a DEDENT token.
-3. Push the indentation to the stack if it was a INDENT token.
-4. Or pop the stack until the indentation is less than or equal if it was a DEDENT token. If the same indentation level is not on the stack, log a indentation error and keep going.
-5. Repeat step 2 until the end of the file.
+2. Count the indentation of the current line by iterating through the characters from left to right:
+    1. If the character is a space: add `1` to the indentation
+    2. If the character is a tab: add anywhere from `1` to `4` to the indentation in order to make the indentation divisible by 4.
+    3. Repeat with the next character.
+4. If the current indentation is greater than the stack: push the indentation to the stack and add a `INDENT` token.
+5. If the current indentation is less than the stack: pop the stack and add `DEDENT` tokens until the indentation is less than or equal to the current indentation. If a matching indentation was not found: log a indentation error and change the indentation on the stack to match the current indentation.
+6. Repeat this algorithm with the next line.
 ## Ambiguous if statements
-Parenthesis are sometimes needed in order to avoid ambiguity in boolean expressions. For example the boolean expression `_ and _ or _` is ambiguous. It could be interpreted as either: `(_ and _) or _` or: `_ and (_ or _)` which are logically distinct boolean statements. The parser will throw an error is such a statement is found. Please note that the precedence rules for boolean expression in **numple** are the same as in math, that is:
+Parenthesis are sometimes needed in order to avoid ambiguity in boolean expressions. For example the boolean expression `_ and _ or _` is ambiguous. It could be interpreted as either `(_ and _) or _` or `_ and (_ or _)` which are logically distinct boolean statements. The parser will throw an error if such a statement is found. Please note that the precedence rules for boolean expression in **numple** are the same as in math, that is:
 1. parenthesis
 2. not
 3. and/or
-This means that the statements such as: `not _ and _` are well defined. Also note that statements such as: `_ and _ and _` or: `_ or _ or _` are well defined.
+
+This means that the statements such as `not _ and _` are well defined. Also note that statements such as `_ and _ and _` and `_ or _ or _` are well defined.
 ## Errors
 In order to give useful errors, the parser needs to keep track of where the error occurs. The parser errors also need to account for the origin of imported code. In general, try to log errors instead of exiting the program, it is annoying to fix an indentation error only to be met with another when you try to parse it again.
 
 Also, don't forget to format the errors nicely and give good coloring and styling with [ANSI escape codes](https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_(Select_Graphic_Rendition%29_parameters). For example `bold_red="\x1b[;31m"` to make text red and bold in the terminal.
+
+Please keep in mind that people who use **numple** should not need to understand the interpreter in order to understand **numple's** errors. Keep errors simple and straight to the point. For example: let's say an if statement is missing a code block, then the error should simply say `If statement is missing code`. It should **not** say `Parser expected INDENT token after boolean expression`.
 # Interpreter
 ## Runtime Errors
-A few runtime errors can occur in **numple**. Since the parser has checked that the syntax is correct. The only things that can go wrong is regarding invalid expressions and Type mismatches. I.E. Division by zero and invlalid function arguments.
+A few runtime errors can occur in **numple**. Since the parser has checked that the syntax is correct. The only things that can go wrong is regarding invalid expressions and Type mismatches. For example division by zero and invalid function arguments.
 # Links
 - [Zig tokenizer](https://mitchellh.com/zig/tokenizer#from-tokens-to-trees)
 - [Zig tokenizer source](https://github.com/ziglang/zig/blob/master/lib/std/zig/tokenizer.zig)
@@ -130,13 +148,13 @@ A few runtime errors can occur in **numple**. Since the parser has checked that 
 # Possible Considerations
 ## Type Declaration
 I have an idea for a more expressive way of declaring the input to a function. It uses the `where` keyword as well as a new `is` keyword. The `is` keyword checks the type of a number at runtime and is used in the following way:
-```ocaml
+```
 function(x, y) R, R -> R
 where x is not Q and y is not Q
 ```
 This is a way to express the input as all *irrational* numbers.
 ## Staticily Typed
-In math, you often declare the type of a number. What of you could do the same in numple? Since all values are immutable, the type should never be able to change anyway.
+In math, you often declare the type of a number. What if you could do the same in numple? Since all values are immutable, the type should never be able to change anyway.
 ## Multiple Dispatch
 It is sometimes convenient to name two functions by the same name but keep different declarations. I currently have two builtin `root` functions. One which is the squareroot, and the other which takes two arguments, the radicand and the level of the root. I'm still on the fence about this idea, I feel like it could cause confusion.
 ## Loops
