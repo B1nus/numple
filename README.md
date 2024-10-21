@@ -1,5 +1,5 @@
 # numple
-A simple programming language to help me with my math homework.
+A simple interpreted programming language to help me with my math homework.
 
 > [!WARNING]
 > To help me get a first version of the language up and running I will remove some features. The following will be temporarily removed:
